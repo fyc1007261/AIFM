@@ -214,7 +214,7 @@ retry:
 
   // 4) shrq.
   return reinterpret_cast<void *>(metadata >>
-                                  FarMemPtrMeta::kObjectDataAddrBitPos);
+                        FarMemPtrMeta::kObjectDataAddrBitPos);
 }
 
 template <bool Shared>

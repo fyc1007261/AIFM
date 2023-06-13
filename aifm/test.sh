@@ -16,6 +16,7 @@ function run_single_test {
         say_failed
     	all_passed=0
     fi
+    # run_program ./bin/$1
 }
 
 function run_all_tests {
