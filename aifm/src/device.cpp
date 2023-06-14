@@ -10,6 +10,7 @@ extern "C"
 #include "enc_helpers.hpp"
 
 #include <cstring>
+#include <iostream>
 
 namespace far_memory
 {
@@ -45,14 +46,14 @@ namespace far_memory
                                 const uint8_t *obj_id, uint16_t data_len,
                                 const uint8_t *data_buf)
   {
-    uint8_t mask[data_len];
+    uint8_t masked[data_len];
     for (uint32_t idx = 0; idx < data_len; idx++)
-      mask[idx] = 0xff;
+      masked[idx] = 0xff;
 
-    xor_bytes(const_cast<uint8_t *>(data_buf),
+    xor_bytes(masked,
               const_cast<uint8_t *>(data_buf),
-              mask, data_len);
-    server_.write_object(ds_id, obj_id_len, obj_id, data_len, data_buf);
+              masked, data_len);
+    server_.write_object(ds_id, obj_id_len, obj_id, data_len, masked);
   }
 
   bool FakeDevice::remove_object(uint64_t ds_id, uint8_t obj_id_len,
@@ -147,15 +148,15 @@ namespace far_memory
   {
     auto remote_slave = shared_pool_.pop();
 
-    uint8_t mask[data_len];
+    uint8_t masked[data_len];
     for (uint32_t idx = 0; idx < data_len; idx++)
-      mask[idx] = 0xff;
+      masked[idx] = 0xff;
 
-    xor_bytes(const_cast<uint8_t *>(data_buf),
+    xor_bytes(masked,
               const_cast<uint8_t *>(data_buf),
-              mask, data_len);
+              masked, data_len);
 
-    _write_object(remote_slave, ds_id, obj_id_len, obj_id, data_len, data_buf);
+    _write_object(remote_slave, ds_id, obj_id_len, obj_id, data_len, masked);
     shared_pool_.push(remote_slave);
   }
 

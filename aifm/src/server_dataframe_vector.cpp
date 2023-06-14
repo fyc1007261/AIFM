@@ -137,7 +137,10 @@ void ServerDataFrameVector<T>::compute_copy_data_by_idx(
                       ->vec_;
   ret_vec.reserve(idx_vec_size);
   for (uint64_t i = 0; i < idx_vec_size; i++) {
-    ret_vec.push_back(vec_[idx_vec[i]]);
+    // ret_vec.push_back(vec_[idx_vec[i]]);
+    auto vec_idx = idx_vec[i];
+    auto val = vec_[vec_idx];
+    ret_vec.push_back(val);
   }
   *output_len = sizeof(uint64_t);
   *reinterpret_cast<uint64_t *>(output_buf) = ret_vec.capacity();

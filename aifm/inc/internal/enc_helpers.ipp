@@ -7,6 +7,8 @@ FORCE_INLINE void xor_bytes(uint8_t *dest,
                             uint8_t *src2,
                             uint32_t len)
 {
+    // memcpy(dest, src1, len);
+    // return;
     for (uint32_t i = 0; i < len; ++i)
     {
         dest[i] = src1[i] ^ src2[i];
